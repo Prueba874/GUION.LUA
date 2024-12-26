@@ -1,123 +1,3 @@
-local ArchivoClaveGuardada = "ClaveGuardada.json"
-local ArchivoHistorial = "HistorialClaves.json"
-local HttpService = game:GetService("HttpService")
-
-local KeyGui = Instance.new("ScreenGui")
-KeyGui.Parent = game.CoreGui
-
-local Frame = Instance.new("Frame")
-Frame.Size = UDim2.new(0.318272662, 0, 0.318272662, 0)
-Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
-Frame.AnchorPoint = Vector2.new(0.5, 0.5)
-Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
-Frame.BorderSizePixel = 0
-Frame.Parent = KeyGui
-
-local UICorner = Instance.new("UICorner")
-UICorner.CornerRadius = UDim.new(0.05, 0)
-UICorner.Parent = Frame
-
-local Gradient = Instance.new("UIGradient")
-Gradient.Color = ColorSequence.new{
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(45, 45, 50)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 15, 20))
-}
-Gradient.Rotation = 45
-Gradient.Parent = Frame
-
-local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(0.950000000, 0, 0.150000000, 0)
-Title.Position = UDim2.new(0.025000000, 0, 0.050000000, 0)
-Title.BackgroundTransparency = 1
-Title.TextColor3 = Color3.fromRGB(220, 220, 220)
-Title.TextScaled = true
-Title.Font = Enum.Font.GothamBold
-Title.Text = "🔐 Sistema de Claves"
-Title.Parent = Frame
-
-local TextBox = Instance.new("TextBox")
-TextBox.Size = UDim2.new(0.900635200, 0, 0.126137561, 0)
-TextBox.Position = UDim2.new(0.049682240, 0, 0.278634136, 0)
-TextBox.PlaceholderText = "Introduce tu clave aquí"
-TextBox.Font = Enum.Font.Gotham
-TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextBox.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
-TextBox.BorderSizePixel = 0
-TextBox.TextScaled = true
-TextBox.ClearTextOnFocus = false
-TextBox.Parent = Frame
-
-local UICornerTextBox = Instance.new("UICorner")
-UICornerTextBox.CornerRadius = UDim.new(0.05, 0)
-UICornerTextBox.Parent = TextBox
-
-local BotonUrl = Instance.new("TextButton")
-BotonUrl.Size = UDim2.new(0.715488320, 0, 0.147448120, 0)
-BotonUrl.Position = UDim2.new(0.142255450, 0, 0.550486350, 0)
-BotonUrl.Text = "Copiar URL de Clave"
-BotonUrl.Font = Enum.Font.GothamBold
-BotonUrl.TextScaled = true
-BotonUrl.TextColor3 = Color3.fromRGB(255, 255, 255)
-BotonUrl.BackgroundColor3 = Color3.fromRGB(0, 122, 204)
-BotonUrl.BorderSizePixel = 0
-BotonUrl.Parent = Frame
-
-local UICornerBotonUrl = Instance.new("UICorner")
-UICornerBotonUrl.CornerRadius = UDim.new(0.05, 0)
-UICornerBotonUrl.Parent = BotonUrl
-
-local BotonInvitacion = Instance.new("TextButton")
-BotonInvitacion.Size = UDim2.new(0.157682243, 0, 0.126241136, 0)
-BotonInvitacion.Position = UDim2.new(0.840682243, 0, 0.562241136, 0)
-BotonInvitacion.Text = "🌍"
-BotonInvitacion.Font = Enum.Font.GothamBold
-BotonInvitacion.TextScaled = true
-BotonInvitacion.TextColor3 = Color3.fromRGB(255, 255, 255)
-BotonInvitacion.BackgroundTransparency = 1
-BotonInvitacion.BorderSizePixel = 0
-BotonInvitacion.Parent = Frame
-
-
-
-local UICornerBotonUrl = Instance.new("UICorner")
-UICornerBotonUrl.CornerRadius = UDim.new(0.1, 0)
-UICornerBotonUrl.Parent = BotonUrl
-
-local claveValida = false
-
-local function guardarClaveGuardada(clave)
-    writefile(ArchivoClaveGuardada, HttpService:JSONEncode({clave = clave, fecha = os.time()}))
-end
-
-local function actualizarHistorial(clave)
-    local historial = {}
-    if isfile(ArchivoHistorial) then
-        historial = HttpService:JSONDecode(readfile(ArchivoHistorial))
-    end
-    table.insert(historial, clave)
-    if #historial > 5 then
-        table.remove(historial, 1)
-    end
-    writefile(ArchivoHistorial, HttpService:JSONEncode(historial))
-end
-
-local function claveEsValida()
-    if isfile(ArchivoClaveGuardada) then
-        local datos = HttpService:JSONDecode(readfile(ArchivoClaveGuardada))
-        if os.time() - datos.fecha < (24 * 60 * 60) then
-            return true
-        end
-    end
-    return false
-end
-
-local function resetearClave()
-    if isfile(ArchivoClaveGuardada) then
-        delfile(ArchivoClaveGuardada)
-    end
-end
-
-local function lopoi()
 local Fernando = game.CoreGui:FindFirstChild("Fernando")
 if Fernando then
     return  
@@ -151,13 +31,11 @@ Frame.Draggable = true
 TextLabel.Parent = Frame
 TextLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel.Size = UDim2.new(1, 0, 1, 0)
-TextLabel.Text = "DBU                                                "
+TextLabel.Text = "Granja Automatico☠️"
 TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.TextStrokeColor3 = Color3.fromRGB(255, 0, 0)
 TextLabel.TextSize = 14
-TextLabel.TextStrokeTransparency = 0
+TextLabel.TextStrokeTransparency = 1
 TextLabel.TextScaled = true
-
 
 Cuadro1.Parent = TextLabel
 Cuadro1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
@@ -187,7 +65,7 @@ Barra2.ScrollingDirection = Enum.ScrollingDirection.Y
 
 Siguiente.Parent = Frame
 Siguiente.BackgroundTransparency = 1
-Siguiente.Position = UDim2.new(0.9, 17, 0, 0)
+Siguiente.Position = UDim2.new(1, -60, 0, 0)
 Siguiente.Size = UDim2.new(0, 30, 0, 30)
 Siguiente.Text = ">"
 Siguiente.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -195,33 +73,11 @@ Siguiente.TextSize = 20
 
 Mix.Parent = Frame
 Mix.BackgroundTransparency = 1
-Mix.Position = UDim2.new(0.880, 0, 0, 0)
+Mix.Position = UDim2.new(1, -90, 0, 0)
 Mix.Size = UDim2.new(0, 30, 0, 30)
 Mix.Text = "+"
 Mix.TextColor3 = Color3.fromRGB(255, 255, 255)
 Mix.TextSize = 20
-
-local ligaLabel = Instance.new("TextLabel")
-ligaLabel.Size = UDim2.new(0, 200, 0, 50)
-ligaLabel.Position = UDim2.new(0.5, -210, 0.5, -25)
-ligaLabel.Text = "Loading..."
-ligaLabel.TextSize = 24
-ligaLabel.TextStrokeTransparency = 0.8
-ligaLabel.BackgroundTransparency = 1
-ligaLabel.Parent = TextLabel
-
-local questLabel = Instance.new("TextLabel")
-questLabel.Size = UDim2.new(0, 200, 0, 30)
-questLabel.Position = UDim2.new(0.3, 36, 0, 0)
-questLabel.BackgroundTransparency = 1
-questLabel.TextSize = 9
-questLabel.Text = "Mission: | Form: "
-questLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-questLabel.TextStrokeColor3 = Color3.fromRGB(0, 255, 255)
-questLabel.TextStrokeTransparency = 0
-questLabel.TextScaled = false
-questLabel.Parent = TextLabel
-
 
 --incio Borde color\/
 Borde1.Parent = Cuadro1
@@ -232,6 +88,46 @@ Borde2.Parent = Cuadro2
 Borde2.Thickness = 2
 Borde2.Color = Color3.fromRGB(255, 0, 0) 
 --parte 2 de color Borde\/
+
+--Cuadro para txt para ir ah Bills \/
+local textBox = Instance.new("TextBox", Cuadro2)
+textBox.Size = UDim2.new(0, 200, 0, 50)
+textBox.Position = UDim2.new(0.5, -100, 0.5, -25)
+textBox.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+textBox.BorderSizePixel = 6
+textBox.BorderColor3 = Color3.fromRGB(0, 0, 255)
+textBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+textBox.TextSize = 18
+textBox.PlaceholderText = "Introduce un número (Ej. 100M, 1B)"
+textBox.ClearTextOnFocus = true
+Instance.new("UICorner", textBox).CornerRadius = UDim.new(0, 12)
+
+local function saveToJSON(fileName, data)
+    writefile(fileName, game:GetService("HttpService"):JSONEncode(data))
+end
+
+local function loadFromJSON(fileName)
+    if isfile(fileName) then
+        return game:GetService("HttpService"):JSONDecode(readfile(fileName))
+    end
+    return nil
+end
+
+local savedData = loadFromJSON("TObills")
+local minStrength = savedData and savedData.minStrength
+if minStrength then textBox.Text = tostring(minStrength) end
+
+textBox.FocusLost:Connect(function()
+    local input = textBox.Text
+    local number, suffix = input:match("^(%d+)([MmBb])$")
+    if number then
+        minStrength = tonumber(number) * (suffix == "M" and 1e6 or 1e9)
+        saveToJSON("TObills", {minStrength = minStrength})
+    else
+        minStrength = nil
+    end
+end)
+--Fin Ciclo de cuadro para ir Bills
 
 
 task.spawn(function()
@@ -257,11 +153,7 @@ end)
 
 --incio de color txt\/
 local textProperties = {
-    {text = "Farm", position = UDim2.new(-0.155, 0, 0.115, 0), color = Color3.fromRGB(255, 0, 0)},
-    {text = "Mel", position = UDim2.new(0.350, 0, 0.115, 0), color = Color3.fromRGB(0, 255, 0)},
-    {text = "Reb", position = UDim2.new(-0.160, 0, 0.195, 0), color = Color3.fromRGB(0, 255, 255)},   
-    {text = "Puch", position = UDim2.new(0.360, 0, 0.195, 0), color = Color3.fromRGB(0, 0, 255)},
-    {text = "Main", position = UDim2.new(-0.160, 0, 0.270, 0), color = Color3.fromRGB(255, 255, 0)},
+    
 }
 
 for _, props in pairs(textProperties) do
@@ -352,314 +244,544 @@ local function createSwitch(parent, position, switchName, initialState)
     return function() return isActive end
 end
 
-local getIsActive1 = createSwitch(Barra1, UDim2.new(0.2, 0, 0.120, 0), "Switch1", LoadSwitchState("Switch1"))--Farm
-local getIsActive2 = createSwitch(Barra1, UDim2.new(0.735, 0, 0.115, 0), "Switch2", LoadSwitchState("Switch2"))--Mel
-local getIsActive3 = createSwitch(Barra1, UDim2.new(0.2, 0, 0.2, 0), "Switch3", LoadSwitchState("Switch3"))--Reb
-local getIsActive4 = createSwitch(Barra1, UDim2.new(0.735, 0, 0.195, 0), "Switch4", LoadSwitchState("Switch4"))--Puch
-local getIsActive5 = createSwitch(Barra1, UDim2.new(0.2, 0, 0.275, 0), "Switch5", LoadSwitchState("Switch5"))--Main
 --Casi fin del interrutor /\
 
 
 task.spawn(function()
     pcall(function()
-local sts = {"Strength", "Speed", "Defense", "Energy"}
-function yo()
-    local l = math.huge
-    for _, v in pairs(sts) do
-        local stat = data:FindFirstChild(v)
-        if not stat then return end
-        local st = stat.Value
-        if st < l then
-            l = st
-        end
-    end
-    return l
-end 
+
+getgenv().Stats = {}
 
 local lplr = game.Players.LocalPlayer
-local data = game.ReplicatedStorage:WaitForChild("Datas"):WaitForChild(lplr.UserId)
+local ldata = game.ReplicatedStorage:WaitForChild("Datas"):WaitForChild(lplr.UserId)
 
-local npcList = {
-    {"Vekuta (SSJBUI)", 6.375e9},
-    {"Wukong Rose", 4.25e9},
-    {"Vekuta (LBSSJ4)", 3.25e9},
-    {"Wukong (LBSSJ4)", 2.1e9},
-    {"Vegetable (LBSSJ4)", 1.55e9},
-    {"Vis (20%)", 1.05e9},
-    {"Vills (50%)", 675e6},
-    {"Wukong (Omen)", 300e6},
-    {"Vegetable (GoD in-training)", 150e6},
-    {"SSJG Kakata", 100e6},
-    {"Broccoli", 55.5e6},
-    {"SSJB Wukong", 8e6},
-    {"Kai-fist Master", 3225000},
-    {"SSJ2 Wukong", 2250000},
-    {"Perfect Atom", 1275000},
-    {"Chilly", 850000},
-    {"Super Vegetable", 258000},
-    {"Mapa", 95000},
-    {"Radish", 45000},
-    {"Kid Nohag", 20000},
-    {"Klirin", 0}
+local stats = getgenv().Stats
+
+local planet = "Earth"
+
+-- Verify player 
+function checkplr()
+    found = false
+    for i,v in pairs(stats) do
+        if v[1] == lplr.Name then
+            found = false
+            return v
+        end
+    end
+    local table = {lplr.Name, math.huge, math.huge, }
+    if not found then return table end
+end
+
+function getrebprice()
+    return (ldata.Rebirth.Value * 3e6) + 2e6
+end
+
+local sts = {"Strength","Speed","Defense","Energy"}
+function getloweststat()
+    local l = math.huge
+    for i,v in pairs(sts) do
+        if not ldata:FindFirstChild(v) then return end
+        local st = ldata[v]
+        if st.Value < l then l = st.Value end
+    end
+    return l
+end
+
+
+
+
+if lplr.PlayerGui:FindFirstChild("Start") then
+    game:GetService("ReplicatedStorage").Package.Events.Start:InvokeServer()
+    if workspace.Others:FindFirstChild("Title") then
+        workspace.Others.Title:Destroy();
+    end;
+    local cam = game.Workspace.CurrentCamera;
+    cam.CameraType = Enum.CameraType.Custom;
+    cam.CameraSubject = lplr.Character.Humanoid;
+    _G.Ready = true
+    game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true);
+    lplr.PlayerGui:WaitForChild("Main").Enabled = true
+    if lplr.PlayerGui:FindFirstChild("Start") then
+        lplr.PlayerGui.Start:Destroy()
+    end
+    lplr.PlayerGui.Main.bruh.Enabled = false
+    lplr.PlayerGui.Main.bruh.Enabled = true
+end
+
+-- New Script
+function FindChar()
+    while (not lplr.Character) and (not lplr.Character:FindFirstChild("Humanoid")) and (not lplr.Character.Humanoid.Health > 0) do task.wait() end
+    return lplr.Character
+end
+
+
+
+local r = math.random(1,1e9)
+_G.Key = r
+pcall(function()game.ReplicatedStorage.BossMaps.Parent = game.Workspace.Others end)
+local bm = game.Workspace.Others:WaitForChild("BossMaps")-- or game.ReplicatedStorage:FindFirstChild("BossMaps")
+bm.Parent = game.ReplicatedStorage
+-- ResetOnSpawn, Name = "Autofarm", 
+
+
+
+local Directory = lplr.PlayerGui
+pcall(function() Directory.Autofarm:Destroy()end)
+local ScGui = Instance.new("ScreenGui")
+ScGui.ResetOnSpawn = false
+ScGui.Name = "Autofarm"
+ScGui.Parent = lplr.PlayerGui
+-- Instances:
+
+
+kick = false
+
+local GC = getconnections or get_signal_cons
+if GC then
+	for i,v in pairs(GC(lplr.Idled)) do
+		if v["Disable"] then
+			v["Disable"](v)
+		elseif v["Disconnect"] then
+			v["Disconnect"](v)
+		end
+	end
+else
+	lplr.Idled:Connect(function()
+		local VirtualUser = game:GetService("VirtualUser")
+		VirtualUser:CaptureController()
+		VirtualUser:ClickButton2(Vector2.new())
+	end)
+end
+
+local kb_args = {
+    [1] = 1,
+    [2] = true,
+    [3] = CFrame.new(Vector3.new(0,0,0), Vector3.new(-0.7386234402656555, -0.15270498394966125, -0.6565948128700256))
 }
 
-spawn(function()
-    while true do
-        pcall(function()
-            if data.Quest.Value == "" then
-                for _, npc in ipairs(npcList) do
-                    local npcName, requiredStrength = npc[1], npc[2]
-                    local npcInstance = game.Workspace.Others.NPCs:FindFirstChild(npcName)
-                    if npcInstance and npcInstance:FindFirstChild("HumanoidRootPart") and yo() >= requiredStrength then
-                        lplr.Character.HumanoidRootPart.CFrame = npcInstance.HumanoidRootPart.CFrame * CFrame.new(0, 0, 3)
-                        break
-                    end
-                end
-            end
-        end)
-        task.wait()
+
+local questNPCs = game.Workspace.Others.NPCs
+if questNPCs:FindFirstChild("Vegetable (GoD in-training)") then
+    planet = "Bills"
+end
+Farming = true
+Boss = nil
+CanAttack = true
+
+
+local bosses = {} -- Fight every boss at the lowest possible
+if planet == "Bills" then
+    bosses = {
+        {"Vekuta (SSJBUI)",1.375e9},
+        {"Wukong Rose",1.25e9},
+        {"Vekuta (LBSSJ4)",1.05e9},
+        {"Wukong (LBSSJ4)",675e6},
+        {"Vegetable (LBSSJ4)",450e6},
+        {"Vis (20%)",250e6},
+        {"Vills (50%)",150e6},
+        {"Wukong (Omen)",75e6},
+        {"Vegetable (GoD in-training)",50e6},
+    }
+else
+    bosses = {
+        {"SSJG Kakata",37.5e6},
+        {"Broccoli",35.5e6},
+        {"SSJB Wukong",2e6},
+        {"Kai-fist Master",1625000},
+        {"SSJ2 Wukong",1250000},
+        {"Perfect Atom",875000},
+        {"Chilly",550000},
+        {"Super Vegetable",188000},
+        {"Top X Fighter",115000},
+        {"Mapa",75000},
+        {"Radish",45000},
+        {"Kid Nohag",20000},
+        {"Klirin",0},
+    }
+end
+
+
+
+local forms = {}
+local side = ldata:WaitForChild("Allignment")
+local function transform()
+    if not FindChar() then return end
+    if FindChar():WaitForChild("Stats").Ki.Value < 200 then return end
+    if getloweststat() < 34000 then return end
+    while not lplr.Status:FindFirstChild("Transformation") do task.wait() end
+    if not Boss then
     end
-end)
-
-
---Ciclo Para Auto = Tp Boss A Cualquier Tipo De Boss
-task.spawn(function()
-    while true do
-        pcall(function()
-        if getIsActive1() or getIsActive2() then
-            local questValue = data.Quest.Value
-            local boss = game.Workspace.Living:FindFirstChild(questValue)
-            if boss and boss:FindFirstChild("Humanoid") and boss.Humanoid.Health > 0 then
-                lplr.Character.HumanoidRootPart.CFrame = boss.HumanoidRootPart.CFrame * CFrame.new(0, 0, 8)
-            end
-          end
-        end)
-        task.wait()
+    if side.Value == "Good" then
+        forms = {
+	    {"Astral Instinct",120e6,"Blanco"},	
+            {"Beast",120e6,"Blanco"},
+            {"SSJBUI",120e6,"Blanco"},
+            {"LBSSJ4",100e6},
+            {"SSJB3",50e6,"SSJB4"},
+            {"God of Creation",30e6,"True God of Creation"},
+            {"Mastered Ultra Instinct",14e6},
+            {"Godly SSJ2",8e6,"Super Broly"},
+            {"Blue Evolution",3.5e6,"Super Broly"},
+            {"Kefla SSJ2",3e6},
+            {"SSJB Kaioken",2.2e6},
+            {"SSJ Blue",1.2e6},
+            {"SSJ Rage",700000},
+            {"SSJG",450000},
+            {"SSJ4",300000},
+            {"Mystic",200000},
+            {"LSSJ",140000},
+            {"SSJ3",95000},
+            {"Spirit SSJ",65000},
+            {"SSJ2",34000},
+            {"SSJ Kaioken",16000},
+            {"SSJ",6000},
+            {"FSSJ",2500},
+            {"Kaioken",1000},
+        }
+    elseif side.Value == "Evil" then
+        forms = {
+          {"Astral Instinct",120e6,"Blanco"},	
+            {"Beast",120e6,"Blanco"},
+            {"Ultra Ego",120e6,"Blanco"},
+            {"LBSSJ4",100e6},
+            {"SSJR3",50e6,"SSJB4"},
+            {"God of Destruction",30e6,"True God of Destruction"},
+            {"Jiren Ultra Instinct",14e6},
+            {"Godly SSJ2",8e6,"Super Broly"},
+            {"Evil SSJ",4e6,"Super Broly"},
+            {"Dark Rose",3.5e6,"Super Broly"},
+            {"SSJ Berserker",3e6},
+            {"True Rose",2.4e6},
+            {"SSJ Rose",1.4e6},
+            {"Corrupt SSJ",700000},
+            {"SSJG",450000},
+            {"SSJ4",300000},
+            {"Mystic",200000},
+            {"LSSJ",140000},
+            {"SSJ3",95000},
+            {"SSJ2 Majin",65000},
+            {"SSJ2",34000},
+            {"SSJ Kaioken",16000},
+            {"SSJ",6000},
+            {"FSSJ",2500},
+            {"Kaioken",1000},
+        }
     end
-end)
-
-
-task.spawn(function()
-    while true do
-        pcall(function()
-            for _, npc in ipairs(workspace:GetDescendants()) do
-                if npc:IsA("Model") and npc:FindFirstChild("HumanoidRootPart") then
-                    local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - npc.HumanoidRootPart.Position).Magnitude
-                    if distance <= 50 then
-                        game:GetService("ReplicatedStorage").Package.Events.Qaction:InvokeServer(npc)
-                    end
-                end
-            end
-        end)
-        task.wait()
-    end
-end)
-
-
-task.spawn(function()
-    while true do
-        pcall(function()
-            if data.Quest.Value ~= "" then
-                task.wait(1)
-                local npcFolder = game:GetService("Workspace").Others.NPCs
-                for _, npc in ipairs(npcFolder:GetChildren()) do
-                    if npc:FindFirstChild("HumanoidRootPart") then
-                        local distance = (npc.HumanoidRootPart.Position - lplr.Character.HumanoidRootPart.Position).Magnitude
-                        if distance <= 500 and npc.Name ~= "Halloween NPC" then
-                            data.Quest.Value = ""
-                            break
-                        end
-                    end
-                end
-            end
-        end)
-        task.wait(1)
-    end
-end)
-
-
---Ciclo Para Auto = Tierra 
-task.spawn(function()
-    while true do
-        pcall(function()
-            if getIsActive1() and game.PlaceId == 5151400895 and data.Strength.Value <= 200000000 then
-                game:GetService("ReplicatedStorage").Package.Events.TP:InvokeServer("Earth")
-                task.wait(4)
-            end
-        end)
-        wait(1)
-    end
-end)
-
---Ciclo Para Auto = Bills 
-task.spawn(function()
-    while true do
-        if getIsActive1() and  game.PlaceId ~= 5151400895 and data.Strength.Value >= 200000000 then
-            game:GetService("ReplicatedStorage").Package.Events.TP:InvokeServer("Vills Planet")
-            task.wait(4)
+    -- Don't transform if stat grinding
+    local lstatus = lplr.Status
+    local currentform = lstatus.Transformation.Value
+    if planet == "Earth" and ldata.Rebirth.Value >= 20000 then
+        if getloweststat() < 30e6 then return end
+        local useform = nil
+        for i,form in pairs(forms) do
+            if form[2] == 30e6 then useform = form[1] break end
         end
-        wait(1)
+        while lplr.Status.Transformation.Value ~= useform do
+            game:GetService("ReplicatedStorage").Package.Events.equipskill:InvokeServer(useform)
+            if lplr.Status.Transformation.Value == useform then return end
+            pcall(function()
+                game.ReplicatedStorage.Package.Events.ta:InvokeServer()
+            end)
+            task.wait(.01)
+        end
+        return
     end
-end)
-
---Ciclo Para Auto = Atakes
-local moves = {"Wolf Fang Fist", "Meteor Crash", "High Power Rush", "Mach Kick", "Spirit Barrage", "God Slicer"}
-task.spawn(function()
-    while true do
-        pcall(function()
-        local boss = game.Workspace.Living:FindFirstChild(data.Quest.Value)           
-            if boss and boss:FindFirstChild("Humanoid") and boss.Humanoid.Health > 0 and data.Strength.Value >= 2e5 and data.Quest.Value ~= "" and getIsActive2() then
-                for _, move in pairs(moves) do
-                    if not lplr.Status:FindFirstChild(move) then
-                        task.spawn(function()
-                            game.ReplicatedStorage.Package.Events.mel:InvokeServer(move, "Blacknwhite27")
-                        end)
+    if FindChar() then
+        if getloweststat() < 1e12 then -- (ldata.Rebirth.Value*3e6)+2e6
+            -- Under 1T stats, transform for efficiency
+            for i,form in pairs(forms) do
+                if currentform == form[1] or (form[3] and currentform == form[3]) then return end
+                if getloweststat() >= form[2] then 
+                    
+                    game:GetService("ReplicatedStorage").Package.Events.equipskill:InvokeServer(form[1])
+                    if form[3] ~= nil  then
+                        game:GetService("ReplicatedStorage").Package.Events.equipskill:InvokeServer(form[3])
                     end
+                    CanAttack = true
+                    pcall(function()                                  
+                        game.ReplicatedStorage.Package.Events.ta:InvokeServer()
+                    end)
+                    while FindChar().HumanoidRootPart.Anchored == true do wait() end
+                    CanAttack = true
+                    break
                 end
             end
-        end)
-        task.wait()
-    end
-end)
-
---Ciclo para Auto = Puños
-task.spawn(function()
-    while true do
-        pcall(function()
-            if data.Quest.Value ~= "" and  getIsActive4() then
-                game:GetService("ReplicatedStorage").Package.Events.p:FireServer("Blacknwhite27", 1)
-                game:GetService("ReplicatedStorage").Package.Events.p:FireServer("Blacknwhite27", 2)                    
+        else -- Transform for mastery, should be over 1T so no need to check for req
+            for i,form in pairs(forms) do -- 5,767/332,526"
+                if ldata[form[1]].Value < 5767 then
+                    local useform = form[1] -- Name of the form you SHOULD use
+                    if form[1] == lplr.Status.Transformation.Value then return -- If already in this form then don't do it again lol
+                    else
+                        
+                        game.ReplicatedStorage.Package.Events.equipskill:InvokeServer(form[1])
+                        CanAttack = false
+                        killtarget = nil
+                        while lplr.Status.Transformation.Value ~= useform do
+                            game.ReplicatedStorage.Package.Events.equipskill:InvokeServer(form[1])
+                            pcall(function()
+                                game.ReplicatedStorage.Package.Events.ta:InvokeServer()
+                            end)
+                            task.wait(.01)
+                        end
+                        while FindChar().HumanoidRootPart.Anchored == true do wait() end
+                        CanAttack = true
+                    end
+                    Stacking = true
+                    return
+                end
             end
-        end)
+           
+            useform = "Beast"
+            if ldata[useform].Value < 332526 then
+                if useform == lplr.Status.Transformation.Value then return -- If already in this form then don't do it again lol
+                else
+                    game.ReplicatedStorage.Package.Events.equipskill:InvokeServer(useform)
+                    CanAttack = true
+                    killtarget = nil
+                    
+                    while lplr.Status.Transformation.Value ~= useform do
+                        pcall(function()
+                            game.ReplicatedStorage.Package.Events.ta:InvokeServer()
+                        end)
+                        task.wait(.01)
+                    end
+                    while FindChar().HumanoidRootPart.Anchored == true do wait() end
+                    CanAttack = true
+                end
+                return
+            end -- 332526
+            for i,form in pairs(forms) do -- 5,767/332,526"
+                if ldata[form[1]].Value < 332526 then
+                    local useform = form[1] -- Name of the form you SHOULD use
+                    if form[1] == lplr.Status.Transformation.Value then return -- If already in this form then don't do it again lol
+                    else
+                        
+                        game.ReplicatedStorage.Package.Events.equipskill:InvokeServer(form[1])
+                        CanAttack = true
+                        killtarget = nil
+                        while lplr.Status.Transformation.Value ~= useform do
+                            pcall(function()
+                                game.ReplicatedStorage.Package.Events.ta:InvokeServer()
+                            end)
+                            task.wait(0.01)
+                        end
+                       CanAttack = true
+                                   
+                    end
+                    return
+                end
+            end
+        end
+    end
+end
+
+
+local questbosses = game.Workspace.Living
+function findboss(questname) -- Finds the bossmodel
+    local bossname = questname
+    if questname == "Top X Fighter" then
+        bossname = "X Fighter Master"
+    end
+    if 
+     questbosses:FindFirstChild(bossname) and
+     questbosses[bossname]:FindFirstChild("HumanoidRootPart") and 
+     questbosses[bossname]:FindFirstChild("Humanoid")
+    then -- If the boss isn't deleted
+        local boss = questbosses[bossname]
+        return boss
+    end
+end
+
+
+
+
+Stacking = false
+task.spawn(function() -- Auto Charge
+   
+    while ScGui do
+    pcall(function()
+                if lplr.Status.Blocking.Value ~= true then
+                    task.spawn(function()
+                        --pcall(function()
+                            game:GetService("ReplicatedStorage").Package.Events.block:InvokeServer(true)
+                        --end)
+                    end)
+                end
+            end)
+        if Farming then
+            pcall(function()
+                local Ki = lplr.Character.Stats.Ki
+                while _G.Key == r and ScGui and (not Stacking) and ((not Boss) or Ki.Value < 40 or Ki.Value < Ki.MaxValue/10) and lplr.Character.Humanoid.Health > 0 do
+                    CanAttack = nil -- Only = nil if charging
+                    game:GetService("ReplicatedStorage").Package.Events.cha:InvokeServer("Blacknwhite27")            
+                end
+                if CanAttack == nil then
+                    CanAttack = true
+                end
+            end)
+        end
         wait()
     end
 end)
 
---Ciclo para Auto = Carga
-task.spawn(function()
-    while true do
-        pcall(function()         
-            if lplr.Status.Transformation.Value ~= "None" and game.PlaceId == 5151400895 then
-                if getIsActive4() then
-                    game:GetService("ReplicatedStorage").Package.Events.cha:InvokeServer("Blacknwhite27")
-                end
-            end
-        end)
-        wait()
-    end
-end)
 
-task.spawn(function()
-    while true do
-        pcall(function()
-            if getIsActive4() and game.PlaceId ~= 5151400895 then
-                game:GetService("ReplicatedStorage").Package.Events.cha:InvokeServer("Blacknwhite27")
-            end
-        end)
-        task.wait()
-    end
-end)
-
---Ciclo para Auto = Rebirth
-task.spawn(function()
-    while true do
-        pcall(function()
-            if getIsActive3() then
+task.spawn(function() -- Rebirth, teleport earth/bills
+    while ScGui do
+        if Farming then
+            if _G.StatGrinding ~= true and (getloweststat() >= ((ldata.Rebirth.Value*3e6) + 2e6)) and (getloweststat() < (((ldata.Rebirth.Value*3e6) + 2e6)*2)) and ldata.Rebirth.Value < checkplr()[2] then
+                --spawn(function()                
                 game:GetService("ReplicatedStorage").Package.Events.reb:InvokeServer()
             end
-        end)
-        wait(.5)
-    end
-end)
-
-task.spawn(function()
-    if data:FindFirstChild("Allignment") then
-        local alignment = data.Allignment.Value
-        if alignment == "Evil" then
-            ligaLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-            ligaLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
-        elseif alignment == "Good" then
-            ligaLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-            ligaLabel.TextColor3 = Color3.fromRGB(0, 0, 255)
-        end
-        ligaLabel.Text = alignment
-    end
-end)
-
-
-task.spawn(function()
-    while true do
-        pcall(function()
-            local questValue = data.Quest.Value or ""
-            local Trf = lplr.Status.Transformation.Value
-            questLabel.Text = "Mission: " .. questValue .. " | Form: " .. Trf
-        end)
-        wait()
-    end
-end)
-
---Ciclo Para Auto = Main y Start
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Workspace = game:GetService("Workspace")
-local lplr = Players.LocalPlayer
-
-spawn(function()
-    if lplr.PlayerGui:FindFirstChild("Start") then
-        ReplicatedStorage.Package.Events.Start:InvokeServer()
-        if Workspace.Others:FindFirstChild("Title") then
-            Workspace.Others.Title:Destroy()
-        end
-        local cam = Workspace.CurrentCamera
-        cam.CameraType = Enum.CameraType.Custom
-        cam.CameraSubject = lplr.Character.Humanoid
-        _G.Ready = true
-        game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true)
-        lplr.PlayerGui.Main.Enabled = true
-        if lplr.PlayerGui:FindFirstChild("Start") then
-            lplr.PlayerGui.Start:Destroy()
-        end
-        lplr.PlayerGui.Main.bruh.Enabled = false
-        lplr.PlayerGui.Main.bruh.Enabled = true
-    end
-end)
-            
---Ciclo Para = Traformation.Value           
-task.spawn(function()
-    while true do
-        pcall(function()
-            local Forms = {
-                'Divine Rose Prominence', 'Astral Instinct', 'Ultra Ego', 'SSJB4', 'True God of Creation', 
-                'True God of Destruction', 'Super Broly', 'LSSJG', 'LSSJ4', 'SSJG4', 'LSSJ3', 'Mystic Kaioken', 
-                'LSSJ Kaioken', 'SSJR3', 'SSJB3', 'God Of Destruction', 'God Of Creation', 'Jiren Ultra Instinct', 
-                'Mastered Ultra Instinct', 'Godly SSJ2', 'Ultra Instinct Omen', 'Evil SSJ', 'Blue Evolution', 
-                'Dark Rose', 'Kefla SSJ2', 'SSJ Berserker', 'True Rose', 'SSJB Kaioken', 'SSJ Rose', 
-                'SSJ Blue', 'Corrupt SSJ', 'SSJ Rage', 'SSJG', 'SSJ4', 'Mystic', 'LSSJ', 'SSJ3', 
-                'Spirit SSJ', 'SSJ2 Majin', 'SSJ2', 'SSJ Kaioken', 'SSJ', 'FSSJ', 'Kaioken'
-            }
-            local equipRemote = game:GetService("ReplicatedStorage").Package.Events.equipskill
-            local transformRemote = game:GetService("ReplicatedStorage").Package.Events.ta
-            local player = game.Players.LocalPlayer
-            if getIsActive1() or getIsActive2() then
-                if player.Character and player.Character.Humanoid and player.Character.Humanoid.Health > 0 and player.Character:FindFirstChild("HumanoidRootPart") then
-                    for _, transformation in ipairs(Forms) do
-                        if equipRemote:InvokeServer(transformation) then
-                            break
-                        end
-                    end
-                    if player.Status and player.Status:FindFirstChild("SelectedTransformation") and player.Status:FindFirstChild("Transformation") then
-                        local status = player.Status
-                        if status.SelectedTransformation.Value ~= status.Transformation.Value then
-                            transformRemote:InvokeServer()
-                        end
-                    end
-                end
+            if getloweststat() >= 150e6 and ldata.Zeni.Value >= 15000 and planet == "Earth" then                          
+    game.ReplicatedStorage.Package.Events.TP:InvokeServer("Vills Planet")
+                wait(5)
             end
-        end)
+            -- If just rebirthed and in Beerus go to Earth
+            if getloweststat() < 50e6 and planet == "Bills" then               
+    game.ReplicatedStorage.Package.Events.TP:InvokeServer("Earth")
+                wait(5)
+            end
+        end
         task.wait()
     end
 end)
 
+game.Workspace.FallenPartsDestroyHeight = 0/0
+local part = Instance.new("Part")
+part.Parent = Workspace
+part.Position = Vector3.new(0,20000,0)
+part.Anchored = true
+part.Transparency = .9
+
+
+
+while not lplr:FindFirstChild("Status") do task.wait() print("Waiting for status") end -- staack
+if planet == "Bills" and lplr.Status.Transformation.Value == "None" and getloweststat() < getrebprice()*1.2 then
+    Stacking = true
+    print("wait to stack")
+    
+    print("stacking now")
+    local form = lplr:WaitForChild("Status"):WaitForChild("Transformation").Value
+    --[[if form ~= "None" then
+        game:GetService("ReplicatedStorage").Package.Events.equipskill:InvokeServer(form)
+        game:GetService("ReplicatedStorage").Package.Events.ta:InvokeServer()
+        -- unform
+    end]]
+    
+   
+    task.wait()
+   Stacking = true
+   Stacking = false
+end
+
+local mobs = {"X Fighter","Evil Saya"}
+canvolley = true
+task.spawn(function() -- Move/Attack
+    while ScGui do
+        if Farming then
+            if _G.Key ~= r then
+                return
+            end
+            task.spawn(function() 
+            	pcall(function()
+	                lplr.Character.Humanoid:ChangeState(11)
+	                lplr.Character.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+	                if (not Boss) and #game.Players:GetChildren() > 1  then 
+	                    pcall(function()
+	                        lplr.Character.HumanidoRootPart.CFrame = part.CFrame
+	                    end)
+	                end
+	                pcall(function()
+	                    lplr.Character.HumanoidRootPart.CFrame = CFrame.new(Boss.HumanoidRootPart.CFrame * CFrame.new(0,0,4.5).p, Boss.HumanoidRootPart.Position)
+	                end)
+	                if Boss then
+	                    task.spawn(function()
+	                        for i,blast in pairs(FindChar().Effects:GetChildren()) do
+	                            if blast.Name == "Blast" then
+	                                blast.CFrame = Boss.HumanoidRootPart.CFrame
+	                            end
+	                        end
+	                    end)
+	                end
+	                if Boss and lplr.Character.Humanoid.Health > 0 and Boss.Humanoid.Health > 0 then
+	                    if CanAttack and not Stacking then
+	                        CanAttack = false
+	                        task.spawn(function()
+	                            task.wait(.01) -- Wait for the char to tp back in
+                                if getloweststat() >= 40000 and ldata.Quest.Value ~= "" and not lplr.Status:FindFirstChild("Invincible") then
+                                    
+                                    local thrp = Boss:WaitForChild("HumanoidRootPart",1)
+                                    local stats = getloweststat()
+                                    local moves = {}
+                                    local attacked = false
+                                    if stats >= 5000 then
+                                        table.insert(moves, "Wolf Fang Fist")
+                                    end
+                                    if stats >= 40000 then
+                                        table.insert(moves, "Meteor Crash")
+                                    end
+                                    if stats >= 100000 and not table.find({"Evil Saya","X Fighter"},Boss.Name)then
+                                        table.insert(moves, "High Power Rush")
+                                    end
+                                    if stats >= 125000 then
+                                        table.insert(moves, "Mach Kick")
+                                    end
+                                    if stats >= 60e6 then
+                                        if ldata.Allignment.Value == "Good" then
+                                            table.insert(moves, "Spirit Barrage")
+                                        else
+                                            table.insert(moves, "God Slicer")
+                                        end
+                                    end
+                                    for i,move in pairs(moves) do
+                                        if not lplr.Status:FindFirstChild(move) then
+                                            spawn(function()
+                                                game:GetService("ReplicatedStorage").Package.Events.mel:InvokeServer(move,"Blacknwhite27")
+                                                
+                                            end)
+                                            attacked = true
+                                        end
+                                    end
+                                    local args = {
+                                        [1] = "Energy Volley",
+                                        [2] = {
+                                            ["MouseHit"] = CFrame.new(6905.29883, 4005.75342, -6207.93164, 0,0,0, -7.45058149e-09, 0.984732807, -0.174073309, 0.772913337, 0.110451572, 0.624824405),
+                                            ["FaceMouse"] = true
+                                        },
+                                        [3] = "Blacknwhite27"
+                                    }
+                                    if getloweststat() > 10000 and canvolley then
+                                        canvolley = false
+                                        game.ReplicatedStorage.Package.Events.voleys:InvokeServer(unpack(args))
+                                        
+                                        attacked = true
+                                        spawn(function()
+                                            wait(.01)
+                                            canvolley = true
+                                        end)
+                                    end
+                                    if not attacked then
+                                        game:GetService("ReplicatedStorage").Package.Events.p:FireServer("Blacknwhite27",1)
+                                        game:GetService("ReplicatedStorage").Package.Events.p:FireServer("Blacknwhite27",2)
+                                    end
+                                else
+                                    game:GetService("ReplicatedStorage").Package.Events.p:FireServer("Blacknwhite27",1)
+                                    game:GetService("ReplicatedStorage").Package.Events.p:FireServer("Blacknwhite27",2)
+                                end
+                                CanAttack = true
+	                        end)
+	                    end
+                    elseif table.find(mobs,Boss.Name) then
+                        game:GetService("ReplicatedStorage").Package.Events.p:FireServer("Blacknwhite27",1)
+                        game:GetService("ReplicatedStorage").Package.Events.p:FireServer("Blacknwhite27",2)
+                        
+	               	end
+                end)
+            end)
+        end
+        task.wait()
+    end
+end)
 
 spawn(function()
     while true do
@@ -673,61 +795,77 @@ spawn(function()
                 end
             end
         end)
-        wait(5)
+        wait()
     end
 end)
 
-
-local TiempoValidez = 24 * 60 * 60
-local ArchivoClave = "ClaveGuardada.json"
-local HttpService = game:GetService("HttpService")
-
-local TiempoGui = Instance.new("ScreenGui")
-
-local TiempoLabel = Instance.new("TextLabel")
-TiempoLabel.Size = UDim2.new(0.3, 0, 0.1, 0)
-TiempoLabel.Position = UDim2.new(0.6, 0, -0.02, 0)
-TiempoLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TiempoLabel.TextScaled = true
-TiempoLabel.BackgroundTransparency = 1
-TiempoLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-TiempoLabel.BorderSizePixel = 0
-TiempoLabel.Text = "Cargando..."
-TiempoLabel.Parent = Barra1
-
-local function claveEsValida()
-    if isfile(ArchivoClave) then
-        local datosClave = HttpService:JSONDecode(readfile(ArchivoClave))
-        local tiempoRestante = TiempoValidez - (os.time() - datosClave.fecha)
-        return tiempoRestante > 0, tiempoRestante
+task.spawn(function() -- Pick quest
+    while ScGui and getloweststat() < checkplr()[3] do
+        if Farming  then
+            transform()
+            --while not CanAttack do wait() end
+            if ldata.Quest.Value == "" or not Boss then
+                for i,boss in pairs(bosses) do
+                    if ldata.Rebirth.Value >= 2000 and boss[1] == "Mapa" then
+                        boss[2] = 0
+                    end
+                    if getloweststat()/2 >= boss[2] and game.Workspace.Living:FindFirstChild(boss[1]) and game.Workspace.Living[boss[1]]:FindFirstChild("Humanoid") and game.Workspace.Living[boss[1]].Humanoid.Health > 0  then
+                        if ldata.Quest.Value ~= boss[1] then
+              local npc = game.Workspace.Others.NPCs:FindFirstChild(boss[1])  -- Cambié Boss por boss[1] para encontrar el NPC correcto
+                 if npc then
+                     lplr.Character.HumanoidRootPart.CFrame = npc.HumanoidRootPart.CFrame
+        wait() 
     end
-    return false, 0
+
+    pcall(function()
+        game:GetService("ReplicatedStorage").Package.Events.Qaction:InvokeServer(questNPCs[boss[1]])
+    end) 
 end
-
-local function mostrarTiempoRestante(tiempoRestante)
-    TiempoGui.Enabled = true
-
-    spawn(function()
-        while tiempoRestante > 0 do
-            tiempoRestante = tiempoRestante - 1
-            TiempoLabel.Text = string.format("%02d:%02d:%02d", 
-                math.floor(tiempoRestante / 3600), 
-                math.floor((tiempoRestante % 3600) / 60), 
-                tiempoRestante % 60)
-            wait(1)
+                        if ldata.Quest.Value == boss[1] then
+                            Boss = game.Workspace.Living[boss[1]]
+                            if CanAttack ~= false then -- Sets if it's not nil                            
+                                CanAttack = true
+                            end
+                        else
+                            task.wait(.01)
+                            Boss = nil
+                        end
+                        task.wait(.01)
+                        break 
+                    end
+                end
+            elseif game.Workspace.Living:FindFirstChild(ldata.Quest.Value)  then
+                Boss = game.Workspace.Living[ldata.Quest.Value]
+            else ldata.Quest.Value = ""
+                wait(.01)
+            end
         end
+        task.wait()
+    end
+end)  
 
-        TiempoGui.Enabled = false
-        print("El tiempo ha expirado. Debes ingresar una nueva clave.")
-    end)
-end
 
-local esValida, tiempoRestante = claveEsValida()
-if esValida then
-    mostrarTiempoRestante(tiempoRestante)
-else
-    print("La clave ha expirado o no existe. Debes ingresar una nueva clave.")
-end
+task.spawn(function()
+    while true do
+        pcall(function()
+            if data.Quest.Value ~= "" then
+                wait(2)
+                local npcFolder = game:GetService("Workspace").Others.NPCs
+                for _, npc in ipairs(npcFolder:GetChildren()) do
+                    if npc:FindFirstChild("HumanoidRootPart") then
+                        local distance = (npc.HumanoidRootPart.Position - lplr.Character.HumanoidRootPart.Position).Magnitude
+                        if distance <= 500 and npc.Name ~= "Halloween NPC" then
+                            data.Quest.Value = ""
+                            break
+                        end
+                    end
+                end
+            end
+        end)
+        wait()
+    end
+end)
+                
 --fin de todo \/
        end)    
     wait(.5)
@@ -736,10 +874,15 @@ end)
 task.spawn(function()
     while true do
         pcall(function()
-            if claveEsValida() then
-                for _, obj in pairs(game.CoreGui:GetChildren()) do
-                    if (obj.Name == "KeyGui" or obj.Name == "Fernando") and obj ~= game.CoreGui:FindFirstChild(obj.Name) then
-                        obj:Destroy()
+            local count = 0
+            local firstFernando
+            for _, Fernando in pairs(game.CoreGui:GetChildren()) do
+                if Fernando.Name == "Fernando" then
+                    count = count + 1
+                    if count == 1 then
+                        firstFernando = Fernando
+                    else
+                        Fernando:Destroy()
                     end
                 end
             end
@@ -747,72 +890,3 @@ task.spawn(function()
         wait()
     end
 end)
-
-end
-
-spawn(function()
-    if claveEsValida() then
-        lopoi()
-    end
-end)
-
-spawn(function()
-    if claveEsValida() then
-        KeyGui.Enabled = false
-    else
-        KeyGui.Enabled = true
-    end
-end)
-
-TextBox.FocusLost:Connect(function(enterPressed)
-    if enterPressed then
-        local texto = TextBox.Text
-        local clave = texto:match("KEY:%[(.-)%]$")
-        
-        if clave and #clave == 14 then
-            local historial = HttpService:JSONDecode(isfile(ArchivoHistorial) and readfile(ArchivoHistorial) or "[]")
-            local claveExistente = false
-            for _, v in pairs(historial) do
-                if v == clave then
-                    claveExistente = true
-                    break
-                end
-            end
-
-            if not claveExistente then
-                guardarClaveGuardada(clave)
-                actualizarHistorial(clave)
-                KeyGui.Enabled = false
-                lopoi()
-            else
-                TextBox.Text = "Clave ya usada"
-                TextBox.TextColor3 = Color3.fromRGB(255, 0, 0)
-                wait(1)
-                TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-                TextBox.Text = ""
-            end
-        else
-            TextBox.Text = "Clave inválida"
-            TextBox.TextColor3 = Color3.fromRGB(255, 0, 0)
-            wait(1)
-            TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-            TextBox.Text = ""
-        end
-    end
-end)
-
-BotonInvitacion.MouseButton1Click:Connect(function()
-    setclipboard("https://discord.com/invite/P6b85GfDdF")
-end)
-
-BotonUrl.MouseButton1Click:Connect(function()
-    setclipboard("https://luatt11.github.io/Keysistema/")
-end)
-
-while true do
-    wait(0.5)
-    if not claveEsValida() then
-        resetearClave()
-        KeyGui.Enabled = true
-    end
-end
