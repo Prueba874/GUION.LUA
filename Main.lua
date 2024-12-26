@@ -153,6 +153,7 @@ end)
 
 --incio de color txt\/
 local textProperties = {
+    {text = "Reb", position = UDim2.new(-0.155, 0, 0.115, 0), color = Color3.fromRGB(255, 0, 0)},
     
 }
 
@@ -243,6 +244,8 @@ local function createSwitch(parent, position, switchName, initialState)
 
     return function() return isActive end
 end
+
+local getIsActive1 = createSwitch(Barra1, UDim2.new(0.2, 0, 0.120, 0), "Switch1", LoadSwitchState("Switch1"))--Farm
 
 --Casi fin del interrutor /\
 
@@ -628,7 +631,7 @@ end)
 task.spawn(function() -- Rebirth, teleport earth/bills
     while ScGui do
         if Farming then
-            if _G.StatGrinding ~= true and (getloweststat() >= ((ldata.Rebirth.Value*3e6) + 2e6)) and (getloweststat() < (((ldata.Rebirth.Value*3e6) + 2e6)*2)) and ldata.Rebirth.Value < checkplr()[2] then
+            if _G.StatGrinding ~= true and (getloweststat() >= ((ldata.Rebirth.Value*3e6) + 2e6)) and (getloweststat() < (((ldata.Rebirth.Value*3e6) + 2e6)*2)) and ldata.Rebirth.Value < checkplr()[2] and getIsActive1()then
                 --spawn(function()                
                 game:GetService("ReplicatedStorage").Package.Events.reb:InvokeServer()
             end
