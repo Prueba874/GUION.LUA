@@ -253,6 +253,19 @@ local getIsActive1 = createSwitch(Barra1, UDim2.new(0.2, 0, 0.120, 0), "Switch1"
 task.spawn(function()
     pcall(function()
 
+spawn(function()
+    while true do
+        pcall(function()
+            game:GetService('Players').LocalPlayer.Idled:Connect(function()
+                local bb = game:GetService('VirtualUser')
+                bb:CaptureController()
+                bb:ClickButton2(Vector2.new())
+            end)
+        end)
+        wait(.5)
+    end
+end)
+
 getgenv().Stats = {}
 
 local lplr = game.Players.LocalPlayer
