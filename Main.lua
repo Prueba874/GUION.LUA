@@ -250,6 +250,9 @@ local getIsActive1 = createSwitch(Barra1, UDim2.new(0.2, 0, 0.120, 0), "Switch1"
 --Casi fin del interrutor /\
 
 
+
+
+
 task.spawn(function()
     pcall(function()
 
@@ -429,7 +432,8 @@ local function transform()
     end
     if side.Value == "Good" then
         forms = {
-	    {"Astral Instinct",120e6,"Blanco"},	
+             {"Divine Rose Prominence",140e6,"Blanco"},	
+	        {"Astral Instinct",120e6,"Blanco"},	
             {"Beast",120e6,"Blanco"},
             {"SSJBUI",120e6,"Blanco"},
             {"LBSSJ4",100e6},
@@ -456,6 +460,7 @@ local function transform()
         }
     elseif side.Value == "Evil" then
         forms = {
+        {"Divine Rose Prominence",140e6,"Blanco"},	
           {"Astral Instinct",120e6,"Blanco"},	
             {"Beast",120e6,"Blanco"},
             {"Ultra Ego",120e6,"Blanco"},
