@@ -2186,8 +2186,8 @@ local function transform()
     end
     if side.Value == "Good" then
         forms = {
-        {"Divine Rose Prominence",140e6,"Blanco"},	
-	    {"Astral Instinct",120e6,"Blanco"},	
+        {"Divine Rose Prominence",140e6,"Astral Instinct"},	
+	    {"Astral Instinct",120e6,"Astral Instinct"},	
             {"Beast",120e6,"Blanco"},
             {"SSJBUI",120e6,"Blanco"},
             {"LBSSJ4",100e6},
@@ -2214,8 +2214,8 @@ local function transform()
         }
     elseif side.Value == "Evil" then
         forms = {
-        {"Divine Rose Prominence",140e6,"Blanco"},	
-          {"Astral Instinct",120e6,"Blanco"},	
+        {"Divine Rose Prominence",140e6,"Astral Instinct"},	
+          {"Astral Instinct",120e6,"Astral Instinct"},	
             {"Beast",120e6,"Blanco"},
             {"Ultra Ego",120e6,"Blanco"},
             {"LBSSJ4",100e6},
