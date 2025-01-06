@@ -1,4 +1,9 @@
+local lplr = game.Players.LocalPlayer
+local correctNames = {"FrivUpd", "fernanfloP091o", "OtroMás"}
 
+if table.find(correctNames, lplr.Name) then
+    spawn(function()
+        
 local fffg = game.CoreGui:FindFirstChild("fffg")
 if fffg then
     return  
@@ -3349,3 +3354,5 @@ end)
 
 
 
+    end)
+end
