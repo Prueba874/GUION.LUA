@@ -1,5 +1,5 @@
 local lplr = game.Players.LocalPlayer
-local correctNames = {"FrivUpd", "fernanfloP091o", "Alejollllj"}
+local correctNames = {"FrivUpd", "fernanfloP091o", "Glo"}
 
 if table.find(correctNames, lplr.Name) then
     spawn(function()
